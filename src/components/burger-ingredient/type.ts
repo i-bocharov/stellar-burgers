@@ -1,4 +1,4 @@
-import { TIngredient } from '@utils-types';
+import { TIngredient } from 'types';
 
 export type TBurgerIngredientProps = {
   ingredient: TIngredient;

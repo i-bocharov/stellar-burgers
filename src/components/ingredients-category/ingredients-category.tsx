@@ -1,7 +1,7 @@
 import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
-import { TIngredient } from '@utils-types';
-import { IngredientsCategoryUI } from '../ui/ingredients-category';
+import { TIngredient } from 'types';
+import { IngredientsCategoryUI } from '@ui/ingredients-category';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,

@@ -1,6 +1,6 @@
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
-import { TOrder } from '@utils-types';
+import { TOrder } from 'types';
 import { FC } from 'react';
 
 export const Feed: FC = () => {
