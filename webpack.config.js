@@ -79,9 +79,9 @@ module.exports = {
       '@api': path.resolve(__dirname, './src/shared/api/burger-api'),
       '@types': path.resolve(__dirname, './src/shared/types/types'),
       '@utils': path.resolve(__dirname, './src/shared/utils'),
-      '@store': path.resolve(__dirname, './src/store'),
-      '@slices': path.resolve(__dirname, './src/store/slices'),
-      '@selectors': path.resolve(__dirname, './src/store/selectors')
+      '@selectors': path.resolve(__dirname, './src/services/selectors'),
+      '@slices': path.resolve(__dirname, './src/services/slices'),
+      '@store': path.resolve(__dirname, './src/services/store')
     }
   },
   output: {

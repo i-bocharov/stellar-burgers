@@ -34,12 +34,17 @@
       "types/*": ["src/shared/types/*"],
       "@utils": ["src/shared/utils"],
       "@utils/*": ["src/shared/utils/*"],
-      "@store": ["src/store"],
-      "@store/*": ["src/store/*"],
-      "@slices": ["src/store/slices"],
-      "@slices/*": ["src/store/slices/*"],
-      "@selectors": ["src/store/selectors"],
-      "@selectors/*": ["src/store/selectors/*"],
+      "@hooks": ["src/services/hooks"],
+      "@hooks/*": ["src/services/hooks/*"],
+      "@middlewares": ["src/services/middlewares"],
+      "@middlewares/*": ["src/services/middlewares/*"],
+      "@selectors": ["src/services/selectors"],
+      "@selectors/*": ["src/services/selectors/*"],
+      "@slices": ["src/services/slices"],
+      "@slices/*": ["src/services/slices/*"],
+      "@store": ["src/services/store"],
+      "@store/*": ["src/services/store/*"],
+      
     }
   },
   "include": ["src"]
