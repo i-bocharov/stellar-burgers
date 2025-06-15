@@ -80,6 +80,7 @@ module.exports = {
       '@selectors': path.resolve(__dirname, './src/services/selectors'),
       '@slices': path.resolve(__dirname, './src/services/slices'),
       '@store': path.resolve(__dirname, './src/services/store'),
+      '@thunks': path.resolve(__dirname, './src/services/thunks'),
       '@shared': path.resolve(__dirname, './src/shared'),
       '@api': path.resolve(__dirname, './src/shared/api/burger-api'),
       '@types': path.resolve(__dirname, './src/shared/types/types'),

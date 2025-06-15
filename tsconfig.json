@@ -44,7 +44,8 @@
       "@slices/*": ["src/services/slices/*"],
       "@store": ["src/services/store"],
       "@store/*": ["src/services/store/*"],
-      
+      "@thunks": ["src/services/thunks"],
+      "@thunks/*": ["src/services/thunks/*"],
     }
   },
   "include": ["src"]

@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk, isAnyOf } from '@reduxjs/toolkit';
-import { getIngredientsApi } from '@api';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { fetchIngredients } from '@thunks/ingredients-product';
 import { TIngredient } from 'types';
 
-interface IIngredientsResponse {
+export interface IIngredientsResponse {
   success: boolean;
   data: TIngredient[];
 }
@@ -18,29 +18,6 @@ const initialState: IIngredientsState = {
   loading: false,
   error: null
 };
-
-export const fetchIngredients = createAsyncThunk<
-  TIngredient[],
-  void,
-  { rejectValue: string }
->('ingredients/fetch', async (_, { rejectWithValue }) => {
-  try {
-    // Типизируем промежуточный ответ
-    const res = await getIngredientsApi();
-    // Проверяем и приводим к нужному типу
-    const response = res as unknown as IIngredientsResponse;
-
-    if (!response.success) {
-      return rejectWithValue('Ошибка при загрузке ингредиентов');
-    }
-    return response.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return rejectWithValue(err.message);
-    }
-    return rejectWithValue('Неизвестная ошибка при загрузке ингредиентов');
-  }
-});
 
 export const ingredientsProductSlice = createSlice({
   name: 'ingredientsProduct',
