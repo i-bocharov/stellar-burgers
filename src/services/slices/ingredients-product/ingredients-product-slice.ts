@@ -7,13 +7,13 @@ interface IIngredientsResponse {
   data: TIngredient[];
 }
 
-export interface IngredientsState {
+export interface IIngredientsState {
   items: TIngredient[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: IngredientsState = {
+const initialState: IIngredientsState = {
   items: [],
   loading: false,
   error: null

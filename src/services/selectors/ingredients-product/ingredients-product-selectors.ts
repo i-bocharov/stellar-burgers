@@ -1,19 +1,19 @@
-import { RootState } from '@store';
+import { TRootState } from '@store';
 
-export const selectIngredients = (state: RootState) =>
+export const selectIngredients = (state: TRootState) =>
   state.ingredientsProduct.items;
 
-export const selectIngredientsLoading = (state: RootState) =>
+export const selectIngredientsLoading = (state: TRootState) =>
   state.ingredientsProduct.loading;
 
-export const selectIngredientsError = (state: RootState) =>
+export const selectIngredientsError = (state: TRootState) =>
   state.ingredientsProduct.error;
 
-export const selectBuns = (state: RootState) =>
+export const selectBuns = (state: TRootState) =>
   state.ingredientsProduct.items.filter((item) => item.type === 'bun');
 
-export const selectMains = (state: RootState) =>
+export const selectMains = (state: TRootState) =>
   state.ingredientsProduct.items.filter((item) => item.type === 'main');
 
-export const selectSauces = (state: RootState) =>
+export const selectSauces = (state: TRootState) =>
   state.ingredientsProduct.items.filter((item) => item.type === 'sauce');

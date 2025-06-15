@@ -1,7 +1,13 @@
 import '../../index.css';
 import styles from './app.module.css';
 
-import { Routes, Route, useMatch, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useMatch,
+  useNavigate,
+  useLocation
+} from 'react-router-dom';
 
 import {
   AppHeader,
@@ -25,6 +31,8 @@ import {
 
 const App = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
   const profileMatch = useMatch('/profile/orders/:number')?.params.number;
   const feedMatch = useMatch('/feed/:number')?.params.number;
@@ -37,13 +45,13 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -51,7 +59,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -59,7 +67,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -67,7 +75,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }

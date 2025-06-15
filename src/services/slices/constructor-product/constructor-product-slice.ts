@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TIngredient, TConstructorIngredient } from 'types';
 
-interface ConstructorProductState {
+interface IConstructorProductState {
   bun: TIngredient | null;
   ingredients: TConstructorIngredient[];
   total: number;
 }
 
-const initialState: ConstructorProductState = {
+const initialState: IConstructorProductState = {
   bun: null,
   ingredients: [],
   total: 0
