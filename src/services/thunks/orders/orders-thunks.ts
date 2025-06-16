@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getFeedsApi, getOrdersApi } from '@api';
+import { getFeedsApi, getOrdersApi, orderBurgerApi } from '@api';
+import { TOrder } from '@shared/types';
 
 export const getFeeds = createAsyncThunk(
   'orders/getFeeds',
@@ -24,3 +25,19 @@ export const getUserOrders = createAsyncThunk(
     }
   }
 );
+
+export const createOrder = createAsyncThunk<
+  TOrder,
+  string[],
+  { rejectValue: string }
+>('orders/createOrder', async (ingredientIds, { rejectWithValue }) => {
+  try {
+    const response = await orderBurgerApi(ingredientIds);
+    if (!response.success) {
+      return rejectWithValue('Ошибка при оформлении заказа');
+    }
+    return response.order;
+  } catch (err) {
+    return rejectWithValue('Ошибка при оформлении заказа');
+  }
+});
