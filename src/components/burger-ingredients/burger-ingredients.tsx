@@ -6,17 +6,19 @@ import {
   selectBuns,
   selectMains,
   selectSauces,
-  selectIngredientsError
+  selectIngredientsError,
+  selectIngredientsLoading
 } from '@selectors/ingredients-product';
 import { TTabMode } from 'types';
 import { BurgerIngredientsUI } from '@ui/burger-ingredients';
+import { Preloader } from '@components/ui';
 
 export const BurgerIngredients: FC = () => {
-  /** TODO: взять переменные из стора */
   const buns = useAppSelector(selectBuns);
   const mains = useAppSelector(selectMains);
   const sauces = useAppSelector(selectSauces);
   const error = useAppSelector(selectIngredientsError);
+  const loading = useAppSelector(selectIngredientsLoading);
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);
@@ -54,6 +56,10 @@ export const BurgerIngredients: FC = () => {
     if (tab === 'sauce')
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   if (error) {
     return (

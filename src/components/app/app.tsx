@@ -28,8 +28,13 @@ import {
   ProfileOrders,
   NotFound404
 } from '@pages';
+import { useAppDispatch } from '@hooks';
+import { useEffect } from 'react';
+import { checkUserAuth } from '@thunks/user';
+import { fetchIngredients } from '@thunks/ingredients-product';
 
 const App = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -37,6 +42,11 @@ const App = () => {
   const profileMatch = useMatch('/profile/orders/:number')?.params.number;
   const feedMatch = useMatch('/feed/:number')?.params.number;
   const orderNumber = profileMatch || feedMatch;
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+    dispatch(checkUserAuth());
+  }, [dispatch]);
 
   const handleModalClose = () => {
     navigate(-1);
