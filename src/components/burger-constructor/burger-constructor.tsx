@@ -4,7 +4,6 @@ import { BurgerConstructorUI } from '@ui';
 import { useAppSelector } from '@hooks';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const bun = useAppSelector((state) => state.constructorProduct.bun);
   const ingredients = useAppSelector(
     (state) => state.constructorProduct.ingredients
@@ -13,9 +12,6 @@ export const BurgerConstructor: FC = () => {
   // const orderModalData = useAppSelector((state) => state.orders.orderModalData);
 
   const constructorItems = { bun, ingredients };
-
-  // const orderRequest = false;
-  // const orderModalData = null;
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
