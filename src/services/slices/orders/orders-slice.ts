@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { createOrder, getUserOrders } from '@thunks/orders';
+import { createOrder, getOrderByNumber, getUserOrders } from '@thunks/orders';
 import { TOrder } from 'types';
 
 interface IOrdersState {
@@ -35,6 +35,10 @@ const ordersSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.orderRequest = false;
         state.orderModalData = action.payload;
+      })
+      .addCase(getOrderByNumber.fulfilled, (state, action) => {
+        state.orderModalData = action.payload;
+        state.loading = false;
       })
       .addMatcher(isPending, (state, action) => {
         if (action.type.startsWith('orders/createOrder')) {

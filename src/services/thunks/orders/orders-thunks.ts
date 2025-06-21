@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getOrdersApi, orderBurgerApi } from '@api';
+import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
 import { TOrder } from '@shared/types';
 
 export const getUserOrders = createAsyncThunk(
@@ -27,5 +27,21 @@ export const createOrder = createAsyncThunk<
     return response.order;
   } catch (err) {
     return rejectWithValue('Ошибка при оформлении заказа');
+  }
+});
+
+export const getOrderByNumber = createAsyncThunk<
+  TOrder,
+  string,
+  { rejectValue: string }
+>('orders/getOrderByNumber', async (orderNumber, { rejectWithValue }) => {
+  try {
+    const response = await getOrderByNumberApi(Number(orderNumber));
+    if (Array.isArray(response.orders) && response.orders.length > 0) {
+      return response.orders[0];
+    }
+    return rejectWithValue('Заказ не найден');
+  } catch (err) {
+    return rejectWithValue('Ошибка при получении заказа');
   }
 });

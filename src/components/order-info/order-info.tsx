@@ -1,21 +1,26 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '@ui/preloader';
 import { OrderInfoUI } from '@ui/order-info';
 import { TIngredient } from 'types';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { useParams } from 'react-router-dom';
+import { getOrderByNumber } from '@thunks/orders';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const { number } = useParams<{ number: string }>();
+  const dispatch = useAppDispatch();
 
-  const ingredients: TIngredient[] = [];
+  // Загружаем заказ по номеру при открытии модалки
+  useEffect(() => {
+    if (number) {
+      dispatch(getOrderByNumber(number));
+    }
+  }, [dispatch, number]);
+
+  const orderData = useAppSelector((state) => state.orders.orderModalData);
+  const ingredients: TIngredient[] = useAppSelector(
+    (state) => state.ingredientsProduct.items
+  );
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
