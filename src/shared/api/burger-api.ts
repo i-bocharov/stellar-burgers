@@ -1,5 +1,5 @@
 import { setCookie, getCookie } from '@utils/cookie';
-import { TIngredient, TOrder, TOrdersData, TUser } from 'types';
+import { TIngredient, TOrder, TUser } from 'types';
 
 const URL = process.env.BURGER_API_URL;
 
@@ -31,7 +31,12 @@ export const refreshToken = (): Promise<TRefreshResponse> =>
         return Promise.reject(refreshData);
       }
       localStorage.setItem('refreshToken', refreshData.refreshToken);
-      setCookie('accessToken', refreshData.accessToken);
+
+      // Сохраняем только сам токен, без "Bearer "
+      const accessToken = refreshData.accessToken.startsWith('Bearer ')
+        ? refreshData.accessToken.slice(7)
+        : refreshData.accessToken;
+      setCookie('accessToken', accessToken);
       return refreshData;
     });
 
@@ -47,7 +52,7 @@ export const fetchWithRefresh = async <T>(
       const refreshData = await refreshToken();
       if (options.headers) {
         (options.headers as { [key: string]: string }).authorization =
-          refreshData.accessToken;
+          `Bearer ${getCookie('accessToken') || ''}`;
       }
       const res = await fetch(url, options);
       return await checkResponse<T>(res);
@@ -87,17 +92,21 @@ export const getFeedsApi = () =>
       return Promise.reject(data);
     });
 
-export const getOrdersApi = () =>
-  fetchWithRefresh<TFeedsResponse>(`${URL}/orders`, {
+export const getOrdersApi = () => {
+  const accessToken = getCookie('accessToken');
+  return fetchWithRefresh<TFeedsResponse>(`${URL}/orders`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: getCookie('accessToken')
+      authorization: `Bearer ${accessToken || ''}`
     } as HeadersInit
   }).then((data) => {
-    if (data?.success) return data.orders;
+    if (data?.success) {
+      return data.orders;
+    }
     return Promise.reject(data);
   });
+};
 
 type TNewOrderResponse = TServerResponse<{
   order: TOrder;
@@ -109,7 +118,7 @@ export const orderBurgerApi = (data: string[]) =>
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: getCookie('accessToken')
+      authorization: `Bearer ${getCookie('accessToken') || ''}`
     } as HeadersInit,
     body: JSON.stringify({
       ingredients: data
@@ -153,7 +162,14 @@ export const registerUserApi = (data: TRegisterData) =>
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
-      if (data?.success) return data;
+      if (data?.success) {
+        const accessToken = data.accessToken.startsWith('Bearer ')
+          ? data.accessToken.slice(7)
+          : data.accessToken;
+        setCookie('accessToken', accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        return data;
+      }
       return Promise.reject(data);
     });
 
@@ -172,7 +188,14 @@ export const loginUserApi = (data: TLoginData) =>
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
-      if (data?.success) return data;
+      if (data?.success) {
+        const accessToken = data.accessToken.startsWith('Bearer ')
+          ? data.accessToken.slice(7)
+          : data.accessToken;
+        setCookie('accessToken', accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        return data;
+      }
       return Promise.reject(data);
     });
 
@@ -209,7 +232,7 @@ type TUserResponse = TServerResponse<{ user: TUser }>;
 export const getUserApi = () =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {
     headers: {
-      authorization: getCookie('accessToken')
+      authorization: `Bearer ${getCookie('accessToken') || ''}`
     } as HeadersInit
   });
 
@@ -218,7 +241,7 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: getCookie('accessToken')
+      authorization: `Bearer ${getCookie('accessToken') || ''}`
     } as HeadersInit,
     body: JSON.stringify(user)
   });
