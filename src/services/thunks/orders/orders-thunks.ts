@@ -1,18 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getFeedsApi, getOrdersApi, orderBurgerApi } from '@api';
+import { getOrdersApi, orderBurgerApi } from '@api';
 import { TOrder } from '@shared/types';
-
-export const getFeeds = createAsyncThunk(
-  'orders/getFeeds',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await getFeedsApi();
-      return response;
-    } catch (err) {
-      return rejectWithValue('Ошибка при получении заказов');
-    }
-  }
-);
 
 export const getUserOrders = createAsyncThunk(
   'orders/getUserOrders',
