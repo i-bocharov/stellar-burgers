@@ -1,4 +1,4 @@
-// import { useAppSelector } from '@hooks';
+import { useAppSelector } from '@hooks';
 
 import styles from './constructor-page.module.css';
 
@@ -7,8 +7,10 @@ import { Preloader } from '@components/ui';
 import { FC } from 'react';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  // Берём состояние загрузки ингредиентов из стора
+  const isIngredientsLoading = useAppSelector(
+    (state) => state.ingredientsProduct.loading
+  );
 
   return (
     <>
