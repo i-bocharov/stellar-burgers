@@ -27,7 +27,11 @@ const initialState: IOrdersState = {
 const ordersSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    clearOrderModalData: (state) => {
+      state.orderModalData = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Обработчики fulfilled
@@ -68,4 +72,5 @@ const ordersSlice = createSlice({
   }
 });
 
+export const { clearOrderModalData } = ordersSlice.actions;
 export const ordersReducer = ordersSlice.reducer;
