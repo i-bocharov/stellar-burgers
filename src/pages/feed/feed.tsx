@@ -3,11 +3,16 @@ import { FeedUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { getFeeds } from '@thunks/feed';
+import {
+  selectFeedError,
+  selectFeedLoading,
+  selectFeedOrders
+} from '@selectors/feed';
 
 export const Feed: FC = () => {
-  const orders = useAppSelector((state) => state.feed.orders);
-  const loading = useAppSelector((state) => state.feed.loading);
-  const error = useAppSelector((state) => state.feed.error);
+  const orders = useAppSelector(selectFeedOrders);
+  const loading = useAppSelector(selectFeedLoading);
+  const error = useAppSelector(selectFeedError);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

@@ -5,12 +5,11 @@ import styles from './constructor-page.module.css';
 import { BurgerIngredients, BurgerConstructor } from '@components';
 import { Preloader } from '@components/ui';
 import { FC } from 'react';
+import { selectIngredientsLoading } from '@selectors/ingredients-product';
 
 export const ConstructorPage: FC = () => {
   // Берём состояние загрузки ингредиентов из стора
-  const isIngredientsLoading = useAppSelector(
-    (state) => state.ingredientsProduct.loading
-  );
+  const isIngredientsLoading = useAppSelector(selectIngredientsLoading);
 
   return (
     <>

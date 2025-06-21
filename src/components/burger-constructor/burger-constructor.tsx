@@ -1,18 +1,21 @@
 import { FC, useMemo } from 'react';
-import { TConstructorIngredient } from 'types';
+import { TConstructorIngredient, TIngredient } from 'types';
 import { BurgerConstructorUI } from '@ui';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { createOrder } from '@thunks/orders';
 import { clearOrderModalData } from '@slices/orders';
+import {
+  selectConstructorBun,
+  selectConstructorIngredients
+} from '@selectors/constructor-product';
+import { selectOrderModalData, selectOrderRequest } from '@selectors/orders';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
-  const bun = useAppSelector((state) => state.constructorProduct.bun);
-  const ingredients = useAppSelector(
-    (state) => state.constructorProduct.ingredients
-  );
-  const orderRequest = useAppSelector((state) => state.orders.orderRequest);
-  const orderModalData = useAppSelector((state) => state.orders.orderModalData);
+  const bun = useAppSelector(selectConstructorBun);
+  const ingredients = useAppSelector(selectConstructorIngredients);
+  const orderRequest = useAppSelector(selectOrderRequest);
+  const orderModalData = useAppSelector(selectOrderModalData);
 
   const constructorItems = { bun, ingredients };
 
@@ -38,7 +41,7 @@ export const BurgerConstructor: FC = () => {
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
       constructorItems.ingredients.reduce(
-        (s: number, v: TConstructorIngredient) => s + v.price,
+        (s: number, v: TIngredient) => s + v.price,
         0
       ),
     [constructorItems]

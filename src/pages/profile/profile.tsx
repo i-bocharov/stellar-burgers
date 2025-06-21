@@ -1,11 +1,12 @@
 import { useAppDispatch, useAppSelector } from '@hooks';
+import { selectUser } from '@selectors/user';
 import { updateUser } from '@thunks/user';
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 
 export const Profile: FC = () => {
   // Берём пользователя из стора
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
   const [formValue, setFormValue] = useState({

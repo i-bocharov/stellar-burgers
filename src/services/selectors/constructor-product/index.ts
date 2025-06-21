@@ -1,1 +1,1 @@
-// export * from './constructor-product-selectors';
+export * from './constructor-product-selectors';

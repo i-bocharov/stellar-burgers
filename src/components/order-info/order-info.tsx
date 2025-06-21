@@ -5,6 +5,8 @@ import { TIngredient } from 'types';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { useParams } from 'react-router-dom';
 import { getOrderByNumber } from '@thunks/orders';
+import { selectOrderModalData } from '@selectors/orders';
+import { selectIngredients } from '@selectors/ingredients-product';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
@@ -17,10 +19,8 @@ export const OrderInfo: FC = () => {
     }
   }, [dispatch, number]);
 
-  const orderData = useAppSelector((state) => state.orders.orderModalData);
-  const ingredients: TIngredient[] = useAppSelector(
-    (state) => state.ingredientsProduct.items
-  );
+  const orderData = useAppSelector(selectOrderModalData);
+  const ingredients: TIngredient[] = useAppSelector(selectIngredients);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
