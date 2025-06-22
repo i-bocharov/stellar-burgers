@@ -29,9 +29,32 @@ export const constructorProductSlice = createSlice({
       prepare: (ingredient: TIngredient) => ({
         payload: { ...ingredient, id: uuidv4() }
       })
+    },
+    removeIngredient: (state, action: PayloadAction<string>) => {
+      state.ingredients = state.ingredients.filter(
+        (ingredient) => ingredient.id !== action.payload
+      );
+    },
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ from: number; to: number }>
+    ) => {
+      const { from, to } = action.payload;
+      const ingredient = state.ingredients[from];
+      state.ingredients.splice(from, 1);
+      state.ingredients.splice(to, 0, ingredient);
+    },
+    clearConstructor: (state) => {
+      state.bun = null;
+      state.ingredients = [];
     }
   }
 });
 
-export const { addIngredient } = constructorProductSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  moveIngredient,
+  clearConstructor
+} = constructorProductSlice.actions;
 export const constructorProductReducer = constructorProductSlice.reducer;
