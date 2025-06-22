@@ -9,6 +9,13 @@ import {
   selectConstructorIngredients
 } from '@selectors/constructor-product';
 import { selectOrderModalData, selectOrderRequest } from '@selectors/orders';
+import {
+  clearConstructor,
+  moveIngredient,
+  removeIngredient
+} from '@slices/constructor-product';
+import { selectUser } from '@selectors/user';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,13 +23,19 @@ export const BurgerConstructor: FC = () => {
   const ingredients = useAppSelector(selectConstructorIngredients);
   const orderRequest = useAppSelector(selectOrderRequest);
   const orderModalData = useAppSelector(selectOrderModalData);
+  const user = useAppSelector(selectUser);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const constructorItems = { bun, ingredients };
-
   const disabled = !bun || orderRequest;
 
   const onOrderClick = () => {
     if (!bun || orderRequest) return;
+    if (!user) {
+      navigate('/login', { state: { from: location } });
+      return;
+    }
 
     const ingredientIds = [
       bun._id,
@@ -30,11 +43,32 @@ export const BurgerConstructor: FC = () => {
       bun._id
     ];
 
-    dispatch(createOrder(ingredientIds));
+    dispatch(createOrder(ingredientIds)).then(() => {
+      dispatch(clearConstructor());
+    });
   };
 
   const closeOrderModal = () => {
     dispatch(clearOrderModalData());
+  };
+
+  const handleMoveUp = (index: number) => {
+    if (index > 0) {
+      dispatch(moveIngredient({ from: index, to: index - 1 }));
+    }
+  };
+
+  const handleMoveDown = (index: number) => {
+    if (
+      constructorItems.ingredients &&
+      index < constructorItems.ingredients.length - 1
+    ) {
+      dispatch(moveIngredient({ from: index, to: index + 1 }));
+    }
+  };
+
+  const handleRemoveIngredient = (id: string) => {
+    dispatch(removeIngredient(id));
   };
 
   const price = useMemo(
@@ -55,6 +89,9 @@ export const BurgerConstructor: FC = () => {
       orderModalData={orderModalData}
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
+      handleMoveUp={handleMoveUp}
+      handleMoveDown={handleMoveDown}
+      handleClose={handleRemoveIngredient}
       disabled={disabled}
     />
   );

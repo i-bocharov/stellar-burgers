@@ -17,6 +17,9 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   orderModalData,
   onOrderClick,
   closeOrderModal,
+  handleMoveUp,
+  handleMoveDown,
+  handleClose,
   disabled
 }) => (
   <section className={styles.burger_constructor}>
@@ -46,6 +49,9 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               index={index}
               totalItems={constructorItems.ingredients.length}
               key={item.id}
+              handleMoveUp={() => handleMoveUp(index)}
+              handleMoveDown={() => handleMoveDown(index)}
+              handleClose={() => handleClose(item.id)}
             />
           )
         )
