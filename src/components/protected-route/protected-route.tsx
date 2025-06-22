@@ -3,7 +3,6 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from '@hooks';
 import { selectIsAuthChecked, selectUser } from '@selectors/user';
 import { Preloader } from '@components/ui';
-import { useSelector } from 'react-redux';
 
 interface IProtectedRouteProps {
   onlyUnAuth?: boolean;
@@ -15,7 +14,7 @@ export const ProtectedRoute: FC<IProtectedRouteProps> = ({
   children
 }) => {
   const isAuthChecked = useAppSelector(selectIsAuthChecked);
-  const user = useSelector(selectUser);
+  const user = useAppSelector(selectUser);
   const location = useLocation();
 
   if (!isAuthChecked) {
