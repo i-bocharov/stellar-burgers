@@ -71,14 +71,20 @@ module.exports = {
       '.jpg'
     ],
     alias: {
-      '@pages': path.resolve(__dirname, './src/pages'),
       '@components': path.resolve(__dirname, './src/components'),
       '@ui': path.resolve(__dirname, './src/components/ui'),
       '@ui-pages': path.resolve(__dirname, './src/components/ui/pages'),
-      '@utils-types': path.resolve(__dirname, './src/utils/types'),
-      '@api': path.resolve(__dirname, './src/utils/burger-api.ts'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@services': path.resolve(__dirname, './src/services'),
+      '@hooks': path.resolve(__dirname, './src/services/hooks'),
+      '@selectors': path.resolve(__dirname, './src/services/selectors'),
       '@slices': path.resolve(__dirname, './src/services/slices'),
-      '@selectors': path.resolve(__dirname, './src/services/selectors')
+      '@store': path.resolve(__dirname, './src/services/store'),
+      '@thunks': path.resolve(__dirname, './src/services/thunks'),
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@api': path.resolve(__dirname, './src/shared/api/burger-api'),
+      '@types': path.resolve(__dirname, './src/shared/types/types'),
+      '@utils': path.resolve(__dirname, './src/shared/utils')
     }
   },
   output: {
@@ -89,6 +95,7 @@ module.exports = {
     static: path.join(__dirname, './dist'),
     compress: true,
     historyApiFallback: true,
-    port: 4000
+    port: 4000,
+    open: true
   }
 };

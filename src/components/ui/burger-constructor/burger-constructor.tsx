@@ -6,7 +6,7 @@ import {
 } from '@zlden/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import { BurgerConstructorUIProps } from './type';
-import { TConstructorIngredient } from '@utils-types';
+import { TConstructorIngredient } from 'types';
 import { BurgerConstructorElement, Modal } from '@components';
 import { Preloader, OrderDetailsUI } from '@ui';
 
@@ -16,7 +16,11 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   price,
   orderModalData,
   onOrderClick,
-  closeOrderModal
+  closeOrderModal,
+  handleMoveUp,
+  handleMoveDown,
+  handleClose,
+  disabled
 }) => (
   <section className={styles.burger_constructor}>
     {constructorItems.bun ? (
@@ -45,6 +49,9 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               index={index}
               totalItems={constructorItems.ingredients.length}
               key={item.id}
+              handleMoveUp={() => handleMoveUp(index)}
+              handleMoveDown={() => handleMoveDown(index)}
+              handleClose={() => handleClose(item.id)}
             />
           )
         )
@@ -84,6 +91,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         size='large'
         children='Оформить заказ'
         onClick={onOrderClick}
+        disabled={disabled}
       />
     </div>
 
