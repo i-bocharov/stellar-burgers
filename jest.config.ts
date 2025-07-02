@@ -92,7 +92,32 @@ const config: Config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@ui-pages$': '<rootDir>/src/components/ui/pages',
+    '^@ui-pages/(.*)$': '<rootDir>/src/components/ui/pages/$1',
+    '^@pages$': '<rootDir>/src/pages',
+    '^@pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^@shared$': '<rootDir>/src/shared',
+    '^@shared/(.*)$': '<rootDir>/src/shared/$1',
+    '^@api$': '<rootDir>/src/shared/api/burger-api',
+    '^@api/(.*)$': '<rootDir>/src/shared/api/$1',
+    '^types$': '<rootDir>/src/shared/types/types',
+    '^types/(.*)$': '<rootDir>/src/shared/types/$1',
+    '^@utils$': '<rootDir>/src/shared/utils',
+    '^@utils/(.*)$': '<rootDir>/src/shared/utils/$1',
+    '^@hooks$': '<rootDir>/src/services/hooks',
+    '^@hooks/(.*)$': '<rootDir>/src/services/hooks/$1',
+    '^@middlewares$': '<rootDir>/src/services/middlewares',
+    '^@middlewares/(.*)$': '<rootDir>/src/services/middlewares/$1',
+    '^@selectors$': '<rootDir>/src/services/selectors',
+    '^@selectors/(.*)$': '<rootDir>/src/services/selectors/$1',
+    '^@slices$': '<rootDir>/src/services/slices',
+    '^@slices/(.*)$': '<rootDir>/src/services/slices/$1',
+    '^@store$': '<rootDir>/src/services/store',
+    '^@store/(.*)$': '<rootDir>/src/services/store/$1',
+    '^@thunks$': '<rootDir>/src/services/thunks',
+    '^@thunks/(.*)$': '<rootDir>/src/services/thunks/$1'
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
