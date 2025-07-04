@@ -1,7 +1,7 @@
 import { rootReducer } from './root-reducer';
 
-describe('Проверяем правильную инициализацию rootReducer', () => {
-  it('возвращает начальное состояние при неизвестном экшене', () => {
+describe('rootReducer', () => {
+  it('returns initial state for unknown action', () => {
     expect(rootReducer(undefined, { type: 'UNKNOWN_ACTION' })).toBeDefined();
   });
 });

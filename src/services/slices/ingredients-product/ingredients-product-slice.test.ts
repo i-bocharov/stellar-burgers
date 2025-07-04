@@ -8,14 +8,14 @@ describe('ingredientsProductSlice', () => {
     error: null
   };
 
-  it('устанавливает loading=true при fetchIngredients.pending', () => {
+  it('sets loading=true and error=null on fetchIngredients.pending', () => {
     const action = { type: fetchIngredients.pending.type };
     const state = ingredientsProductReducer(initialState, action);
     expect(state.loading).toBe(true);
     expect(state.error).toBeNull();
   });
 
-  it('записывает данные и loading=false при fetchIngredients.fulfilled', () => {
+  it('sets loading=false and updates items on fetchIngredients.fulfilled', () => {
     const items = [{ _id: '1', name: 'Булка 1' }];
     const action = { type: fetchIngredients.fulfilled.type, payload: items };
     const state = ingredientsProductReducer(initialState, action);
@@ -24,7 +24,7 @@ describe('ingredientsProductSlice', () => {
     expect(state.error).toBeNull();
   });
 
-  it('записывает ошибку и loading=false при fetchIngredients.rejected', () => {
+  it('sets loading=false and error on fetchIngredients.rejected', () => {
     const action = { type: fetchIngredients.rejected.type, payload: 'Ошибка' };
     const state = ingredientsProductReducer(initialState, action);
     expect(state.error).toBe('Ошибка');

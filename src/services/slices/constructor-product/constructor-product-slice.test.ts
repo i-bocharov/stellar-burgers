@@ -42,7 +42,7 @@ describe('constructorProductSlice', () => {
     expect(state.bun).toEqual(expect.objectContaining({ name: 'Булка 1' }));
   });
 
-  it('добавляет ингредиент', () => {
+  it('adds ingredient', () => {
     const state = constructorProductReducer(
       undefined,
       addIngredient(ingredient)
@@ -53,7 +53,7 @@ describe('constructorProductSlice', () => {
     );
   });
 
-  it('удаляет ингредиент', () => {
+  it('removes ingredient', () => {
     const stateWithIngredient = constructorProductReducer(
       undefined,
       addIngredient(ingredient)
@@ -66,7 +66,7 @@ describe('constructorProductSlice', () => {
     expect(state.ingredients.length).toBe(0);
   });
 
-  it('меняет порядок ингредиентов', () => {
+  it('moves ingredient', () => {
     const state1 = constructorProductReducer(
       undefined,
       addIngredient(ingredient)
@@ -86,7 +86,7 @@ describe('constructorProductSlice', () => {
     expect(state3.ingredients[1].id).toBe(id1);
   });
 
-  it('очищает конструктор', () => {
+  it('clears constructor', () => {
     let state = constructorProductReducer(undefined, addIngredient(bun));
     state = constructorProductReducer(state, addIngredient(ingredient));
     state = constructorProductReducer(state, clearConstructor());
