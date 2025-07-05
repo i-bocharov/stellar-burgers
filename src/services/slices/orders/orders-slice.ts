@@ -52,10 +52,16 @@ const ordersSlice = createSlice({
       .addMatcher(isRejected, (state, action) => {
         if (action.type.startsWith('orders/createOrder')) {
           state.orderRequest = false;
-          state.error = action.payload as string;
+          state.error =
+            (action.payload as string) ??
+            action.error?.message ??
+            'Unknown error';
         } else if (action.type === getUserOrders.rejected.type) {
           state.loading = false;
-          state.error = action.payload as string;
+          state.error =
+            (action.payload as string) ??
+            action.error?.message ??
+            'Unknown error';
         }
       });
   }
