@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+
+import { SELECTORS } from './constants';
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -35,3 +38,30 @@
 //     }
 //   }
 // }
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      addIngredient(type: 'bun' | 'main' | 'sauce'): Chainable<void>;
+      submitOrder(): Chainable<void>;
+      closeOrderModal(): Chainable<void>;
+    }
+  }
+}
+
+Cypress.Commands.add('addIngredient', (type) => {
+  cy.get(
+    SELECTORS[`INGREDIENT_${type.toUpperCase()}` as keyof typeof SELECTORS]
+  )
+    .contains('Добавить')
+    .click()
+    .as(`ingredient${type.charAt(0).toUpperCase() + type.slice(1)}`);
+});
+
+Cypress.Commands.add('submitOrder', () => {
+  cy.get(SELECTORS.ORDER_SUMM_BUTTON).click().as('orderButton');
+});
+
+Cypress.Commands.add('closeOrderModal', () => {
+  cy.get(SELECTORS.MODAL_CLOSE_BUTTON).click();
+});
