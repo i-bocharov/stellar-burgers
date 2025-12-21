@@ -23,9 +23,9 @@
     "typescript": "^5.3.3",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
-    "webpack": "^5.89.0",
+    "webpack": "^5.104.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
@@ -77,7 +77,7 @@
     "prettier-eslint": "^16.2.0",
     "prettier-eslint-cli": "^8.0.1",
     "react-test-renderer": "^18.2.0",
-    "storybook": "^7.6.10",
+    "storybook": "^7.6.21",
     "storybook-addon-react-router-v6": "^2.0.10",
     "style-loader": "^3.3.3",
     "ts-jest": "^29.1.1",
