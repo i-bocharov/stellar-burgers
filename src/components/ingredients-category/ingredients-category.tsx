@@ -8,7 +8,7 @@ import { selectConstructorState } from '@selectors/constructor-product';
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
->(({ title, titleRef, ingredients }, ref) => {
+>(({ title, titleRef, ingredients, ...rest }, ref) => {
   const burgerConstructor = useAppSelector(selectConstructorState);
 
   const ingredientsCounters = useMemo(() => {
@@ -29,6 +29,7 @@ export const IngredientsCategory = forwardRef<
       ingredients={ingredients}
       ingredientsCounters={ingredientsCounters}
       ref={ref}
+      {...rest}
     />
   );
 });

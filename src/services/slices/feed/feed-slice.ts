@@ -39,7 +39,10 @@ const feedSlice = createSlice({
       .addMatcher(isRejected, (state, action) => {
         if (action.type === getFeeds.rejected.type) {
           state.loading = false;
-          state.error = action.payload as string;
+          state.error =
+            (action.payload as string) ??
+            action.error?.message ??
+            'Unknown error';
         }
       });
   }
